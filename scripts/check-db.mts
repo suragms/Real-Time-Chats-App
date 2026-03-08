@@ -31,14 +31,14 @@ async function checkDb() {
     }
 
     console.log("Connecting to InsForge at:", baseUrl);
-    const client = createClient(baseUrl, anonKey);
+    const client = createClient({ baseUrl, anonKey });
 
     try {
         console.log("Checking profiles table...");
         const { data: profiles, error: pErr } = await client.database
             .from("profiles")
             .select("*")
-            .head(true);
+            .limit(1);
 
         if (pErr) {
             console.error("Profiles error:", pErr);
@@ -50,7 +50,7 @@ async function checkDb() {
         const { data: messages, error: mErr } = await client.database
             .from("messages")
             .select("*")
-            .head(true);
+            .limit(1);
 
         if (mErr) {
             console.error("Messages error:", mErr);

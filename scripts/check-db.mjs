@@ -31,7 +31,7 @@ async function checkDb() {
     }
 
     console.log("Connecting to InsForge at:", baseUrl);
-    const client = createClient(baseUrl, anonKey);
+    const client = createClient({ baseUrl, anonKey });
 
     try {
         console.log("Checking profiles table...");
