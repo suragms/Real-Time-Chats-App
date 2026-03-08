@@ -1,6 +1,76 @@
-This is a **real-time chat** app built with [Next.js](https://nextjs.org) and [InsForge](https://insforge.dev) (auth, realtime messaging, presence).
+# Real-Time Chat App
 
-## InsForge setup
+A modern real-time chat application built with Next.js and InsForge for authentication, live messaging, and presence.
+
+---
+
+## Project Overview
+
+This application provides **real-time chat** with support for a main room, direct messages, user presence (online/offline), and optional image/file attachments. Users can sign in, join the main channel, see who is online, and send messages that appear instantly for all participants. The app is PWA-ready and works on desktop and mobile.
+
+---
+
+## Project Structure
+
+```
+realtimehexachat/
+├── app/
+│   ├── (app)/chat/          # Chat UI and real-time messaging
+│   ├── (marketing)/         # Landing, about, features, pricing, etc.
+│   ├── api/chat/upload/     # File upload API for attachments
+│   ├── auth/                # Sign-in page
+│   ├── layout.tsx
+│   ├── globals.css
+│   └── manifest.ts          # PWA manifest
+├── components/
+│   ├── chat/                # ChatHeader, ChatSidebar, MessageBubble, MessageInput
+│   └── layout/              # Navbar, Footer, InstallPrompt
+├── hooks/
+│   └── useChat.ts           # Chat state and real-time subscription
+├── lib/
+│   └── auth-context.tsx     # Auth state and provider
+├── services/
+│   └── insforge.ts          # InsForge client and helpers
+├── types/
+│   └── index.ts             # Shared TypeScript types
+├── scripts/
+│   ├── create-realtime-channels.mjs
+│   └── check-db.mjs / check-db.mts
+├── migrations/              # SQL migrations (e.g. message attachments)
+├── docs/
+│   └── INSFORGE_REFERENCE.md
+├── public/                  # Static assets, PWA workers (sw.js, workbox)
+├── database-schema.sql
+├── next.config.ts
+├── package.json
+└── .env.local.example
+```
+
+---
+
+## Technical Stack
+
+| Layer        | Technology |
+| ------------ | ---------- |
+| Framework    | [Next.js](https://nextjs.org) 16 (App Router) |
+| UI           | React 19, [Tailwind CSS](https://tailwindcss.com) 4, [Lucide React](https://lucide.dev) |
+| Backend / BaaS | [InsForge](https://insforge.dev) (auth, realtime channels, presence, storage) |
+| Realtime     | InsForge SDK (`@insforge/sdk`) – channels & presence |
+| PWA          | `@ducanh2912/next-pwa` |
+| Language     | TypeScript 5 |
+| Tooling      | ESLint, PostCSS |
+
+---
+
+## Development Team
+
+**Surag** — [**Hexa Stack Solutions**](https://github.com/suragms)
+
+Hexa Stack Solutions is a branch launched in **Thrissur** in **December 2024**, focused on full-stack and real-time application development.
+
+---
+
+## InsForge Setup
 
 1. **Backend**: Create an InsForge project and get your **base URL** and **anon key** (dashboard or `get-backend-metadata` MCP).
 2. **Env**: Copy `.env.local.example` to `.env.local` and set:
@@ -14,9 +84,9 @@ This is a **real-time chat** app built with [Next.js](https://nextjs.org) and [I
    - **Storage**: In InsForge → Storage, create a bucket named `chat-attachments` (or set `NEXT_PUBLIC_CHAT_ATTACHMENTS_BUCKET`).
    - **Database**: Ensure the `messages` table has columns `attachment_url`, `attachment_name`, `attachment_type` (text, nullable). Run `migrations/add-messages-attachment-columns.sql` or the simple version if needed.
 
-## Getting Started
+---
 
-First, run the development server:
+## Getting Started
 
 ```bash
 npm run dev
@@ -28,23 +98,12 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Create realtime channels (if needed): `npm run create-realtime-channels`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Conclusion
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Real-Time Chat App demonstrates a full-stack, real-time experience using Next.js and InsForge: authentication, live messaging, presence, and optional file attachments in a clear, maintainable structure. Developed by **Surag** at **Hexa Stack Solutions** (Thrissur, December 2024). For more on Next.js, see the [Next.js Documentation](https://nextjs.org/docs); for deployment, see [Deploying on Vercel](https://nextjs.org/docs/app/building-your-application/deploying).
